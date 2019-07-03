@@ -1,0 +1,84 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "user",
+      "email": "hamdan@gmail.com",
+      "password": "123"
+    },
+    {
+      "id": 2,
+      "username": "login",
+      "email": "hamdan.hamdan@gmail.com",
+      "password": "masuk"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "nama": "Sepatu Sneakers Nike Air Force 1 '07",
+      "desc": "Bahan nylon, warna hitam kombinasi, ukuran 39, 40, 41, 42, 43",
+      "harga": 1379000,
+      "src": "https://www.ncrsport.com/img/storage/small/AO2409-200-1.jpg"
+    },
+    {
+      "id": 2,
+      "nama": "Sepatu Sneakers Puma Wmns Vikky V2 Ribbon Core",
+      "desc": "Bahan canvas, warna putih, tali pita, stok tersedia.",
+      "harga": 99000,
+      "src": "https://www.ncrsport.com/img/storage/small/369727-02-1.jpg"
+    },
+    {
+      "id": 3,
+      "nama": "Sepatu Sneakers Nike Air Force 270",
+      "desc": "Bahan sintetik, warna hitam, stok tersedia.",
+      "harga": 1000000,
+      "src": "https://www.ncrsport.com/img/storage/small/AH6772-010-1.jpg"
+    },
+    {
+      "nama": "Sepatu Sneakers Adidas Wmns Pod-s3.1 ",
+      "desc": "Bahan canvas, warna putih kombinasi, stok tersedia.",
+      "harga": 1700000,
+      "src": "https://www.ncrsport.com/img/storage/small/EE4898-1.jpg",
+      "id": 4
+    }
+  ],
+  "cart": [
+    {
+      "idUser": 1,
+      "idProduct": 1,
+      "nama": "Sepatu Sneakers Nike Air Force 1 '07",
+      "qty": 100,
+      "harga": 1379000,
+      "src": "https://www.ncrsport.com/img/storage/small/AO2409-200-1.jpg",
+      "id": 1
+    },
+    {
+      "idUser": 1,
+      "idProduct": 2,
+      "nama": "Sepatu Sneakers Puma Wmns Vikky V2 Ribbon Core",
+      "qty": 100,
+      "harga": 99000,
+      "src": "https://www.ncrsport.com/img/storage/small/369727-02-1.jpg",
+      "id": 2
+    },
+    {
+      "idUser": 1,
+      "idProduct": 3,
+      "nama": "Sepatu Sneakers Nike Air Force 270",
+      "qty": 100,
+      "harga": 1000000,
+      "src": "https://www.ncrsport.com/img/storage/small/AO2409-200-1.jpg",
+      "id": 3
+    },
+    {
+      "idUser": 1,
+      "idProduct": 4,
+      "nama": "Sepatu Sneakers Adidas Wmns Pod-s3.1 ",
+      "qty": 100,
+      "harga": 1700000,
+      "src": "https://www.ncrsport.com/img/storage/small/AO2409-200-1.jpg",
+      "id": 4
+    }
+  ]
+}
