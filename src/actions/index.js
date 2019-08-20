@@ -31,7 +31,7 @@ export const onLoginUser = (user,pass) => {
 
                 // create data untuk cookie
                 // cookie to be accessible on all pages
-                cookie.set('userName', username, {path: '/'})
+                cookie.set('userName', {username,id}, {path: '/'})
 
             } else {
                 console.log('Username or Password Incorrect')

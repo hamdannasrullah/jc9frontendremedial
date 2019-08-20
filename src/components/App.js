@@ -7,14 +7,8 @@ import Register from './Register'
 import Login from './Login'
 import Home from './Home'
 import Header from './Header'
-import ManageProduct from './ManageProduct'
 
 import { keepLogin } from '../actions'
-
-
-import DetailProduct from './DetailProduct'
-import Cart from './Cart'
-import CartView from './CartView'
 
 
 const cookie = new cookies ()
@@ -35,16 +29,11 @@ class App extends Component {
     render () {
         return (
             <BrowserRouter>
-            <div>
+            <div className="container-fluid">
                 <Header/>
-                <Route path="/" exact component={Home}/> {/* equal, ===  | exact berfungsi agar Home tidak ikut di page lain*/}
+                <Route path="/" exact component={Home}/>
                 <Route path="/register" component={Register}/> {/* include() */}
                 <Route path="/login" component={Login}/> {/* include() */}
-                <Route path="/manageproduct" component={ManageProduct}/> {/* include() */}
-                <Route path="/detailproduct/:product_id" component={DetailProduct}/> {/* :product_id --> akan berubah2 angka (sebuah variabel menyimpan angka) */}
-                <Route path='/cart' component={Cart}/>
-                <Route path='/cartview' component={CartView}/>
-
             </div>
             </BrowserRouter>
         )

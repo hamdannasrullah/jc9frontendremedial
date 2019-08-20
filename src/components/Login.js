@@ -13,33 +13,15 @@ class Login extends Component {
     onButtonClick = () => {
         // ambil data di text input
             // username & password
-            var user = this.username.value // data dari text input
-            var pass = this.password.value
-
-            // tembak data ke database
-            // axios.get(
-            //     'http://localhost:2019/users',
-            //     {
-            //         params: {
-            //             username: user,
-            //             password: pass
-            //         }
-            //     }
-            // ).then((res) => {
-            //     // res.data = [], jumlah isi array menggunakan length
-            //     if(res.data.length > 0) {
-            //         console.log(res.data[0] +'Login Berhasil')
-            //     } else {
-            //     console.log('Login Gagal!')
-            // }
-            // })
+            var user = this.username.value.trim() // data dari text input
+            var pass = this.password.value.trim()
 
             this.props.onLoginUser(user, pass)
             }
 
     render () {
         
-        if (this.props.user.username === ''){
+        if (this.props.user.username == ''){
 
             return (
                     <div>

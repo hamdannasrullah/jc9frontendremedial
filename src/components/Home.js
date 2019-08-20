@@ -1,112 +1,157 @@
-import React, { Component } from 'react';
-import axios from 'axios';
+import React, { Component } from 'react'
+import axios from '../config/axios'
 
-import ProductItem from './ProductItem'
-
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 class Home extends Component {
-
     state = {
-        products: [],
-        searchProducts: []
+        tasks: [],
+        selectedId : 0
     }
 
+    addTask = (userid) => {
+        const todo = this.task.value
+        const completed = false
+        console.log(todo);
+        
 
-    componentDidMount(){
-            this.getProduct()
-    }
+        // Post task baru
 
-    onBtnSearch = () => {
-        const nama = this.nama.value
-        const min = parseInt(this.min.value) // NaN
-        const max = parseInt(this.max.value) // NaN
-
-        // var arrSearch = this.state.searchProducts.filter(item => {
-        //     if(item.nama.toLowerCase().includes(nama)){
-        //         return true
-        //     } else if (nama === '') {
-        //         return true
-        //     }                
-        // })
-        var arrSearch = this.state.searchProducts.filter(item => {
-        if (isNaN(min) && isNaN(max)){ // Search By Name
-            return(
-                item.nama.toLowerCase().includes(nama.toLowerCase())
-            )
-        } else if (isNaN(min)){ // Name and Max
-            return (
-                item.nama.toLowerCase().includes(nama.toLowerCase())
-                && // Boolean
-                item.harga <= max
-            )
-        } else if (isNaN(max)){
-            return (
-                item.nama.toLowerCase().includes(nama.toLowerCase())
-                &&
-                item.harga >= min
-            )
-        } else {
-            return (
-                item.nama.toLowerCase().includes(nama.toLowerCase())
-                &&
-                item.harga >= min
-                &&
-                item.harga <= max
-            )
-        }
+        axios.post (
+            '/tasks/',
+            {
+                userid,
+                todo, // persingkat
+                completed
+            }
+        ).then ( () => {
+            // get tasks
+            this.getTasks()
+        }).catch((err) =>{
         })
+    }
 
-        this.setState({products: arrSearch})
+    changeTaskDone = (tasks) => {
+        console.log(tasks);
+        
+        axios.patch( `/tasks/` + tasks,{
+            completed : true
+        }).then((res) => {
+            this.getTasks()
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    changeTaskCancel = (tasks) => {
+        console.log(tasks);
+        
+        axios.patch( `/tasks/` + tasks,{
+            completed : false
+        }).then((res) => {
+            this.getTasks()
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+    deleteTask = (id) => {
+        axios.delete('/tasks/' + id)
+        .then(() => {
+            this.getTasks()
+        })
+    }
+
+    getTasks = (id) => {
+        const user = this.props.userid         
+        axios.get('/tasks/',{
+            params : {
+                userid : user
+            }
+        }).then(res => {
+            console.log(res);
+            this.setState({tasks: res.data}) // Tampilkan Tugas di Halaman
+        }).catch((err) => {
+            console.log(err);
+        })
+    }
+
+        componentDidMount(){
+            // Get Tasks
+            this.getTasks()
+        }
+    
+        renderTasks = () => {
+            return this.state.tasks.map(task => {
+                if(!task.completed){
+                    return (
+                        <li className='list-group-item d-flex justify-content-between'>
+                            <span>{task.todo}</span>
+                            <span>
+                            <button 
+                                className='btn btn-outline-primary'
+                                onClick={() => {this.changeTaskDone(task.id)}}>
+                                Done
+                            </button>
+                            <button 
+                                className='btn btn-outline-primary'
+                                onClick={() => {this.deleteTask(task.id)}}>
+                                Delete
+                            </button>
+                        </span>
+                    </li>
+                )
+            }
+    
+                return (
+                    <li className='list-group-item d-flex justify-content-between bg-warning'>
+                        <span>{task.todo}</span>
+                        <span>
+                        <button 
+                            className='btn btn-outline-primary'
+                            onClick={() => {this.changeTaskCancel(task.id)}}>
+                            Not Done
+                        </button>
+                        </span>
+                    </li>
+                )
+            })
+        }
+    
+        render() {
+            // Jika user sudah login
+            if(this.props.userid){
+                return (
+                    <div className="container">
+                            <h1 className="display-4 text-center animated bounce delay-1s">List Tasks</h1>
+                            
+                            <form className="form-group mt-5">
+                                <input type="text" className="form-control" placeholder="What do you want to do?" 
+                                defaultValue={''} ref={input => this.task = input}/>
+                            </form>
+
+                            <button type="submit" className="btn btn-block btn-primary mt-3" 
+                                onClick={() => this.addTask(this.props.userid)}>Masukkan Tugas!
+                            </button>
+
+                            <ul className="list-group list-group-flush mb-5">
+                                {this.renderTasks()}
+                            </ul>
+
+                            </div>
+                )
+            }
+    
+            return <Redirect to='/login'/>
+            
+        }
     }
     
-
-    getProduct = () => {
-        axios.get('http://localhost:3003/products')
-        .then(res=>{
-            this.setState({products: res.data, searchProducts: res.data})
-        })
+    const mapToProps = state => {
+        return {
+            userid: state.auth.id
+        }
     }
-
-    renderList = () => {
-        return this.state.products.map (item => { // {nama, desc, ...}
-            return (
-                <ProductItem products={item}/>
-            )
-        })
-    }
-
-
-
-    render () {
-        return (
-            <div className="row">
-                <div className="col">
-                    <div className="mt-5">
-                        <div className="mx-auto card">
-                            <div className="card-body">
-                                <div className="border-bottom border-secondary card-title">
-                                    <h1>Search</h1>
-                                </div>
-                                <div className="card-title mt-1">
-                                    <h4>Name</h4>
-                                </div>
-                                <form className="input-group"><input ref={input => this.nama = input} className="form-control" type="text"/></form>
-                                <div className="card-title mt-1">
-                                    <h4>Price</h4>
-                                </div>
-                                <form className="input-group"><input placeholder="Minimum" ref={input => this.min = input} className="form-control mb-2" type="text" /></form>
-                                <form className="input-group"><input placeholder="Maximum" ref={input => this.max = input} className="form-control" type="text" /></form>
-                                <button onClick={this.onBtnSearch} className="btn btn-outline-secondary btn-block mt-5">Search</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div className="row col-10">
-                    {this.renderList()}
-                </div>
-            </div>
-        )
-    }
-}
-
-export default Home
+    
+    export default connect(mapToProps)(Home)

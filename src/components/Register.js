@@ -6,9 +6,9 @@ import { Link } from 'react-router-dom'
 class Register extends Component {
 
     onButtonClick = () => {
-        const user = this.username.value
-        const newemail = this.email.value
-        const pass = this.password.value
+        const user = this.username.value.trim()
+        const newemail = this.email.value.trim()
+        const pass = this.password.value.trim()
 
         // GET, axios.get - Request Data
         // POST, axios.post - Menaruh Data
@@ -66,24 +66,6 @@ class Register extends Component {
         })
 
 
-
-    //     axios.post('http://localhost:3003/users', 
-    //         {
-    //             username:user,
-    //             email:email,
-    //             password:pass
-    //         }
-    //     ).then((res) => {
-    //         console.log('Data Berhasil Diinput');
-    //         console.log(res);
-            
-            
-    //         }
-    //     ).catch((err) => {
-    //         console.log('Gagal Post Data');
-    //         console.log(err);    
-    //         }
-    //     )
     }
 
 
@@ -126,7 +108,7 @@ class Register extends Component {
 
                                 <button onClick={this.onButtonClick} className='btn btn-success'>Click for Register</button>
                                 
-                                <p>Tidak punya akun? <Link to="/login">Daftar disini</Link></p>          
+                                <p>Sudah punya akun? <Link to="/login">Login disini</Link></p>          
                     </div>
                 </div>
             </div>

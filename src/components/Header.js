@@ -43,17 +43,17 @@ class Header extends Component {
   // Copy Paste dari Reactstrap 2
 
         render () {
-          if (this.props.user.username === ''){
+          if (this.props.user.username == ''){
             // Render ketika BELUM Login
             return (
               <div>
               <Navbar color="light" light expand="md">
-              <NavbarBrand href="/">SimpleMerce</NavbarBrand>
+              <NavbarBrand href="/">Task To Do</NavbarBrand>
               <NavbarToggler onClick={this.toggle} />
               <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
-                  <Link to='/'>All Products</Link>
+                  <Link to='/'>Task</Link>
                 </NavItem>
   
                 <NavItem>
@@ -81,45 +81,20 @@ class Header extends Component {
 
     
         return (
-            <div>
-            <Navbar color="light" light expand="md">
-            <NavbarBrand href="/">SimpleMerce</NavbarBrand>
-            <NavbarToggler onClick={this.toggle} />
-            <Collapse isOpen={this.state.isOpen} navbar>
+      <div>
+        <Navbar color="light" light expand="md">
+            <NavbarBrand >Task To Do</NavbarBrand>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to='/'>All Products</Link>
+              Hai, {this.props.user.username}
               </NavItem>
 
-              <UncontrolledDropdown nav inNavbar>
-                  <DropdownToggle nav caret>
-                      Hai, {this.props.user.username}
-                  </DropdownToggle>
-
-                <DropdownMenu>
-                    <Link to='/ManageProduct'>
-                    <DropdownItem>Manage Products</DropdownItem>
-                    </Link>
-
-                    <Link to='/Cart'>
-                    <DropdownItem>Shopping Cart</DropdownItem>
-                    </Link>
-
-                    <DropdownItem>About</DropdownItem>
-
-                    <DropdownItem>
-                    <DropdownItem divider />
-                    <Button className='dropdown-item' onClick={()=>{this.onButtonClick()}}>
-                    Logout
-                    </Button>
-                    </DropdownItem>
-                    
-                </DropdownMenu>
-
-            </UncontrolledDropdown>
-              
+              <NavItem>
+              <Button color='primary'className="mx-3" onClick={()=>{this.onButtonClick()}}>
+              Logout
+              </Button>
+              </NavItem>
             </Nav>
-          </Collapse>
         </Navbar>
       </div>
         )
